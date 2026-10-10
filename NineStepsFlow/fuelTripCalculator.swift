@@ -44,6 +44,6 @@ struct Car {
 func runCalculation() {
     let car = Car(tankVolume: 50, averageFuelConsumption: 8.5, fuelSpent: 21.5)
     let result = car.canReachGasStation(distanceToGasStation: 121.5)
-    print("Result: \(result)") // Result: true
+    print("Do you have enough range to get to the nearest gas station? \(result)") // Do you have enough range to get to the nearest gas station? true
 }
 
