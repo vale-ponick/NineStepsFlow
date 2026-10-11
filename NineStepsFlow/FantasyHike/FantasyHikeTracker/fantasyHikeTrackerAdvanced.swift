@@ -27,7 +27,7 @@ struct FantasyHikeAdv {
         (Double(stepCount) * Self.stepLengthM) / Self.metersInKm
     }
     
-    var status: HikeStatus { 
+    var status: HikeStatus {
        let deltaKm = dailyTargetInKm - distanceKm
         
         if deltaKm > 0 {
@@ -38,8 +38,19 @@ struct FantasyHikeAdv {
     }
 }
 
+extension FantasyHikeAdv: CustomStringConvertible {
+    var description: String {
+        switch status {
+        case .inProgress(let remainingKm, let progress): return "Started \(String(format: "%.2f", remainingKm)) km, \(Int(progress * 100))%"
+        case .achieved(let overTargetKm): return "Goal achieved! + \(String(format: "%.2f", overTargetKm)) km"
+        }
+    }
+}
+
 func calculate()  {
     let pathForDay = FantasyHikeAdv(stepCount: 5432, dailyTargetInKm: 7.0)
-    print("Completed in a day: \(pathForDay)") // Completed in a day: FantasyHikeAdv(stepCount: 5432, dailyTargetInKm: 7.0)
+    print("Completed in a day: \(pathForDay)") // Completed in a day: Started 3.20 km, 54 %
+    let nextDay = FantasyHikeAdv(stepCount: 12876, dailyTargetInKm: 7.0)
+    print("Completed in a day: \(nextDay)") // Completed in a day: Goal achieved! + 2.01 km
 }
 
