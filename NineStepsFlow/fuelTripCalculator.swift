@@ -24,20 +24,15 @@ struct Car {
     let fuelSpent: Double // сколько литров потрачено
     
     var remainingFuel: Double {
-        return tankVolume - fuelSpent
+        tankVolume - fuelSpent
     }
     
     var possibleDistance: Double {
-        return (remainingFuel / averageFuelConsumption) * 100
+        (remainingFuel / averageFuelConsumption) * 100
     }
     
     func canReachGasStation(distanceToGasStation: Double) -> Bool {
-        
-        if possibleDistance - distanceToGasStation >= 75 {
-            return true
-        } else {
-            return false
-        }
+        possibleDistance - distanceToGasStation >= 75
     }
 }
 

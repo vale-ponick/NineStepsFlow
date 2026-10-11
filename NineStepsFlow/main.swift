@@ -7,5 +7,6 @@
 
 import Foundation
 
-runCalculation() 
-
+// runCalculation()
+// runDisplay()
+calculate() 
