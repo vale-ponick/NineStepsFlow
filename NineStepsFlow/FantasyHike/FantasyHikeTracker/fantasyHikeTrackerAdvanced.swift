@@ -33,7 +33,7 @@ struct FantasyHikeAdv {
         if deltaKm > 0 {
             return  .inProgress(remainingKm: deltaKm, progress: distanceKm / dailyTargetInKm)
         } else {
-            return .achieved(overTargetKm: distanceKm - dailyTargetInKm) // так чище
+            return .achieved(overTargetKm: distanceKm - dailyTargetInKm)
         }
     }
 }
@@ -49,8 +49,15 @@ extension FantasyHikeAdv: CustomStringConvertible {
 
 func calculate()  {
     let pathForDay = FantasyHikeAdv(stepCount: 5432, dailyTargetInKm: 7.0)
-    print("Completed in a day: \(pathForDay)") // Completed in a day: Started 3.20 km, 54 %
+    print("Completed in a day: \(pathForDay)")
+    assert(pathForDay.description == "Started 3.20 km, 54%", "Получили: '\(pathForDay.description)'")
+    
     let nextDay = FantasyHikeAdv(stepCount: 12876, dailyTargetInKm: 7.0)
-    print("Completed in a day: \(nextDay)") // Completed in a day: Goal achieved! + 2.01 km
+    print("Completed in a day: \(nextDay)")
+    assert(nextDay.description == "Goal achieved! + 2.01 km",
+           "Получили: '\(nextDay.description)'")
 }
-
+/**
+ Completed in a day: Started 3.20 km, 54%
+ Completed in a day: Goal achieved! + 2.01 km
+ */
