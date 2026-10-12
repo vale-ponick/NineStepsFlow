@@ -53,11 +53,11 @@ func calculate()  {
     assert(pathForDay.description == "Started 3.20 km, 54%", "Получили: '\(pathForDay.description)'")
     
     let nextDay = FantasyHikeAdv(stepCount: 12876, dailyTargetInKm: 7.0)
-    print("Completed in a day: \(nextDay)")
+    print("Completed in a next day: \(nextDay)")
     assert(nextDay.description == "Goal achieved! + 2.01 km",
            "Получили: '\(nextDay.description)'")
 }
 /**
  Completed in a day: Started 3.20 km, 54%
- Completed in a day: Goal achieved! + 2.01 km
+ Completed in a next day: Goal achieved! + 2.01 km
  */
