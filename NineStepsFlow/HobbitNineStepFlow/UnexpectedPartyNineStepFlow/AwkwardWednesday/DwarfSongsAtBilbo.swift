@@ -20,8 +20,7 @@ import Foundation
     5️⃣ Use the `description` property from your extension to print a clean text block to the console containing the singers, instruments, and the numbered lyrics.
 */
 // MARK: - Protocols
-// Применили протокол: теперь все, кто его подписывают, обязаны отдать краткую сводку о себе
-protocol Describable { // договор, которому все соответствуют/подписаны
+protocol Describable { /// Применили протокол: теперь все, кто его подписывают, обязаны дать краткую сводку о себе
     var summary: String { get }
 }
 // MARK: - Enums
@@ -67,7 +66,7 @@ enum SongGenre: String {
 }
 // MARK: - Instrument
 
-enum Instrument: String { // точно! структура и + и + и! а enum или/или/или
+enum Instrument: String {
     case violin = "violin"
     case flute = "flute"
     case clarinet = "clarinet"
@@ -75,7 +74,9 @@ enum Instrument: String { // точно! структура и + и + и! а enu
     case harp = "harp"
     case viola = "viola"
 }
+
 // MARK: - Song
+
 struct Song {
     let title: String
     let songGenre: SongGenre
@@ -87,9 +88,8 @@ struct Song {
     }
 }
 
-// Выполняем пункт 3️⃣: только красивый заголовок через switch
 extension Song: CustomStringConvertible {
-    var description: String {
+    var description: String { // Выполняем пункт 3️⃣: только красивый заголовок через switch
         switch self.songGenre {
         case .ballad:
             return "🎵 BALLAD: \(title.uppercased()) 🎵"
@@ -127,7 +127,6 @@ struct CompanyMember: CustomStringConvertible, Describable {
         print(song)
         print("Singers count: \(song.numberOfSingers)")
         
-        // И справлено: убираем слэши перед $0
         let activeInstruments = company
             .filter { song.singers.contains($0.name) }
             .compactMap { $0.instrument?.rawValue }
@@ -135,22 +134,21 @@ struct CompanyMember: CustomStringConvertible, Describable {
         
         print("Instruments playing: \(activeInstruments.isEmpty ? "none" : activeInstruments)")
         
-        // Исправлено: убираем слэши перед $0
         let singersLine = song.singers.map { $0.description }.joined(separator: ", ")
         print("🎤 \(singersLine)")
         
         print("\nLyrics:")
-        // Исправлено: убираем слэши перед $0
+ 
         let versesBlock = song.verses
             .enumerated()
             .map { "\($0.offset + 1). \($0.element)" }
             .joined(separator: "\n")
         
         print(versesBlock)
-        print("──────────────────────────────\n")
+        print("───────────\n")
     }
 
-// Главная функция-дирижер (Запуск программы)
+// Главная функция - Запуск программы
 func runDwarfSings() {
     let company: [CompanyMember] = [
         CompanyMember(name: .thorin, race: .dwarf, qualities: [.playMusicalInstrument, .singSongs, .smokePipe], instrument: .harp),
@@ -193,7 +191,7 @@ func runDwarfSings() {
     print("\n")
 
     print("─── Concert Start ───\n")
-    // Вызываем нашу новую изолированную функцию для каждой песни
+    // Вызываем новую изолированную функцию для каждой песни
     printSongDetails(song: ballad, company: company)
     printSongDetails(song: joke, company: company)
 }
