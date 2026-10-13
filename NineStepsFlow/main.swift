@@ -9,4 +9,6 @@ import Foundation
 
 // runCalculation()
 // runDisplay()
-calculate() 
+// calculate()
+// runFeast()
+runDwarfSings()
