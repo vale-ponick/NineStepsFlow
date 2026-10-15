@@ -11,4 +11,5 @@ import Foundation
 // runDisplay()
 // calculate()
 // runFeast()
-runDwarfSings()
+// runDwarfSings()
+runTeaWednesday()
