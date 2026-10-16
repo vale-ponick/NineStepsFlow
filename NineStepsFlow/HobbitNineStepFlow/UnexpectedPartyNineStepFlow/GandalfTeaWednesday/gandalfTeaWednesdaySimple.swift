@@ -23,33 +23,33 @@ import Foundation
  5️⃣ Use `CustomStringConvertible` for `TeaGuest` and `HighTea` to output a clear text block to the console: a title, a numbered list of guests, and their dishes.
  */
 
-struct TeaGuest: CustomStringConvertible {
+struct TeaGuest: CustomStringConvertible { // создала структуру с полями + подписала под протокол
     let name: String
     let race: String
     let requestedDishes: String
     
-    var description: String {
+    var description: String { // создала вычисляемое "на лету" свойство (computed property) - в памяти не хранится
         "\(name) (\(race)) requests \(requestedDishes)"
     }
 }
 
 struct HighTea: CustomStringConvertible {
     
-    private(set) var teaGuests: [TeaGuest] = []
+    private(set) var teaGuests: [TeaGuest] = [] // частный случай модификатор доступа (access modifier): "читать всем (set)!, менять — только внутри типа". // Есть и другие: private, internal, public
     
-    mutating func arrive(name: String, race: String, dish: String) {
+    mutating func arrive(name: String, race: String, dish: String) { // мутац. метод меняет свойства самой структуры (self)
         let guest = TeaGuest(name: name, race: race, requestedDishes: dish)
         teaGuests.append(guest)
     }
-    var description: String { // Формируем строку из всех гостей в массиве
+    var description: String {
         var result = "🍲 Gandalf Tea Wednesday:\n"
         result += teaGuests.enumerated()
             .map { "\($0.offset + 1). \($0.element)" }
-            .joined(separator: "\n")
+            .joined(separator: "\n") // использовала method chaining - Цепочка: enumerated → map → joined. Каждый метод возвращает новое значение, на котором вызывается следующий.
         return result
     }
 }
-func runTeaWednesday() {
+func runTeaWednesday() { // точка входа
     let tea: [TeaGuest] = [
         TeaGuest(name: "Balin", race: "dwarf", requestedDishes: "pie"),
         TeaGuest(name: "Dwalin", race: "dwarf", requestedDishes: "ale"),
@@ -60,12 +60,56 @@ func runTeaWednesday() {
     ]
     
     var highTea = HighTea()
-    for guest in tea {
+    for guest in tea { // перебор массива tea, каждый guest — экземпляр TeaGuest
         highTea.arrive(name: guest.name, race: guest.race, dish: guest.requestedDishes)
     }
     
     print(highTea)
 }
+/** method chaining: enumerated → map → joined.
+ [TeaGuest]                                    начальный массив
+     │
+     │ .enumerated()                           обернуть в пары
+     ▼
+ [(0, TeaGuest), (1, TeaGuest), (2, TeaGuest)]
+     │
+     │ .map { "\($0.offset + 1). \($0.element)" }   превратить в строки
+     ▼
+ ["1. Balin requests pie", "2. Dwalin requests ale", ...]
+     │
+     │ .joined(separator: "\n")                склеить в одну строку
+     ▼
+ "1. Balin requests pie\n2. Dwalin requests ale\n..."
+     │
+     │ return                                 вернуть из computed property
+     ▼
+ String
+ 
+ Почему цепочка, а не цикл?
+ Можно было так:
+
+ var result = ""
+ for (index, guest) in teaGuests.enumerated() {
+     result += "\(index + 1). \(guest)\n"
+ }
+ Работает же. Зачем цепочка?
+
+ Цикл                                   Цепочка
+ Императивный — «делай шаг за шагом»    Декларативный — «что получи»
+ Мутирует переменную (result += ...)    Не мутирует, создаёт новое
+ Читается как инструкция                Читается как выражение
+ Проще отладить                         Компактнее, идиоматичнее Swift
+ 
+ NB: В Swift — цепочка предпочтительнее.    Функциональный стиль.
+ 
+ Совет: при чтении — смотри на типы промежуточных значений. Они подсказывают, какой метод доступен следующим.
+ 
+ Мнемоника — три группы по СМЫСЛУ
+ Преобразование: map, compactMap, filter, reduce.
+ Сборка: joined, sorted, enumerated.
+ Поиск: first, contains, dict[key].
+ */
+
 /**
  🍲 Gandalf Tea Wednesday:
  1. Balin (dwarf) requests pie
