@@ -24,3 +24,90 @@ import Foundation
  */
 // Три связки: 1️⃣ (struct + enum), 4️⃣ (массивы, map, joined, enumerated), 5️⃣ (CustomStringConvertible) + два новых метода: тернарник, if let.
 
+enum ArtifactType: String { // enum + rawValue
+    case map = "🗺️" // a scrap of parchment that looked like a map - a plan of the Lonely Mountain
+    case key = "🗝️" // a silver key with a long shaft and an intricate bit
+}
+
+enum Char: CustomStringConvertible {
+    case thror, thrain, gandalf, thorin, azog, necromancer
+    
+    var shortName: String {
+        switch self {
+        case .thror: return "Thror"
+        case .thrain: return "Thrain"
+        case .gandalf: return "Gandalf"
+        case .thorin: return "Thorin"
+        case .azog: return "Azog"
+        case .necromancer: return "Necromancer"
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .thror: return "Thror, King under the Mountain"
+        case .thrain: return "Thorin's father, tried his luck with the map, experienced many misadventures, did not reach the Mountain, and died in the dungeon of the black magician Necromancer"
+        case .thorin: return "Thorin - leader dwarves, 'Thorin and Ko'"
+        case .azog: return "goblin leader"
+        case .necromancer: return "black Warlock"
+        case .gandalf: return "Gandalf Gray, wizard"
+        }
+    }
+}
+
+struct Transfer {
+    let from: Char
+    let to: Char
+    let note: String
+}
+
+struct Artifact: CustomStringConvertible {
+    let name: String
+    let type: ArtifactType
+    let story: String
+    let transfers: [Transfer]
+    
+    var emoji: String {
+        switch type {
+        case .map: return "🗺️"
+        case .key: return "🗝️"
+        }
+    }
+    
+    var description: String { // ← computed, для протокола
+        "\(emoji) \(name) — Gandalf handed over to Thorin\n\(story)\n\(path())"
+
+    }
+}
+
+extension Artifact {
+    func path() -> String {
+        let chain = transfers.enumerated().map { "\($0.offset + 1). \($0.element.from.shortName) ⟶ \($0.element.to.shortName)  - \($0.element.note)" }
+            .joined(separator: "\n")
+        
+        let reach = transfers.last?.to == .thorin ? "yes" : "no"
+        
+        return "\(chain)\nHas reached Thorin: \(reach)"
+    }
+}
+
+func runArtifacts() {
+    let key = Artifact(
+        name: "key", type: .key, story: "a silver key with a long shaft and an intricate bit", transfers: [
+            Transfer(from: .thror, to: .thrain, note: "killed by Azog in Moria"),
+            Transfer(from: .thrain, to: .gandalf, note: "in the dungeons of the Necromancer"),
+            Transfer(from: .gandalf, to: .thorin, note: "key finally returned to legal heir")])
+    let map = Artifact(
+        name: "map", type: .map, story: "a scrap of parchment that looked like a map - a plan of the Lonely Mountain", transfers: [
+            Transfer(from: .thror, to: .thrain, note: "killed by Azog in Moria"),
+            Transfer(from: .thrain, to: .gandalf, note: "in the dungeons of the Necromancer"),
+            Transfer(from: .gandalf, to: .thorin, note: "map finally returned to legal heir")]
+    )
+    
+    let artifacts: [Artifact] = [key, map]
+
+    for artifact in artifacts {
+        print(artifact)
+        print("---")
+    }
+}
