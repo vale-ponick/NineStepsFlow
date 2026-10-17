@@ -108,6 +108,5 @@ func runArtifacts() {
 
     for artifact in artifacts {
         print(artifact)
-        print("---")
     }
 }
