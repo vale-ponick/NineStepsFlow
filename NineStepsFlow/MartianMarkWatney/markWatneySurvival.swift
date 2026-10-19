@@ -82,13 +82,13 @@ struct WatneyStatus: CustomStringConvertible {
 }
 
 func survivalReport() {
-    
+    // TODO: implement on fresh mind (реализовать на свежую голову)
 }
 
 func runMartian() {
-    
+    // TODO: implement on fresh mind (реализовать на свежую голову)
 }
 
 func unsafeEat() {
-    
+    // TODO: implement on fresh mind (реализовать на свежую голову)
 }
