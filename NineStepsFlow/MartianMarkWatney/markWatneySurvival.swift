@@ -127,7 +127,16 @@ func runMartian() {
     print(watney)
     print(watney.survivalReport())
 }
+func unsafeEat(status: WatneyStatus) {
+    // ⚠️ FORCE UNWRAP: при potatoes = nil → runtime crash (fatalError)
+    // ! игнорирует флаг .none, Swift runtime вызывает fatalError
+    // В продакшене запрещено: падение на живом пользователе
+    let potatoes = status.supplies.potatoes!
+    print("Mark eats \(potatoes) potatoes")
+}
 
+// в runMartian() в конце:
+// unsafeEat(status: watney)  // ← раскомментируй, когда захочешь увидеть краш
 /**
  Телеметрия: Витамины в норме, осталось 300 шт.
  Режим Ares-3. Доступны стандартные пайки: 300. Избыток протеина 4000
