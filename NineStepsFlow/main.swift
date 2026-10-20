@@ -13,4 +13,5 @@ import Foundation
 // runFeast()
 // runDwarfSings()
 // runTeaWednesday()
-runArtifacts()
+// runArtifacts()
+runMartian()

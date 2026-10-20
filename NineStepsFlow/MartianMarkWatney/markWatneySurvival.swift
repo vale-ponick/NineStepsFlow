@@ -75,17 +75,62 @@ struct WatneyStatus: CustomStringConvertible {
         switch diet { // режим питания
         case .normal: return "Режим Ares-3. Доступны стандартные пайки: \(supplies.rationPacks ?? 0). Избыток протеина \(supplies.proteinPowder) "
         case .frugal: return "Экономный режим выживания. Пайки: \(supplies.rationPacks ?? 0). Собранный урожай картофеля: \(supplies.potatoes ?? 0) шт. Кетчуп: \(supplies.ketchup ?? 0) шт."
-       
+            
         case .none: return "Критическая ситуация. Ресурсы исчерпаны."
         }
     }
+    
+    func survivalReport() -> String {
+        let potatoCalories = (supplies.potatoes ?? 0) * 770 // расчет калорий картошки
+        guard let vitamin = supplies.vitamin else {
+            return "There are no vitamins. Mark will get scurvy. There is no point in counting the days of survival."
+        }
+        var ketchupStatus = ""
+        if let ketchup = supplies.ketchup {
+            ketchupStatus = "Ketchup left: \(ketchup) pcs."
+        } else {
+            ketchupStatus = "The ketchup is gone, Mark is choking on dry potatoes (up) pcs."
+        }
+        let lastLog = log.last?.event ?? "Log entry"
+        
+        let totalCalories = potatoCalories + (supplies.rationPacks ?? 0) * 2000
+        let result = "Will survive 400 days: \((totalCalories / 1500) >= 400  ? "YES" : "NO")"
+        
+        return "Mark Watney \(lastLog): \(result), supplies enoth \(ketchupStatus)"
+    }
 }
-func survivalReport() {
-    // TODO: implement on fresh mind (реализовать на свежую голову)
-}
+    
 func runMartian() {
-    // TODO: implement on fresh mind (реализовать на свежую голову)
+    var watney = WatneyStatus(
+        diet: DailyCaloricIntake.normal,
+        log: [LogEntry(day: 1, event: "wounded, antenna pierced side")],
+        health: .injured,
+        supplies: Resource(
+            vitamin: 300,
+            proteinPowder: 4000,
+            rationPacks: 300,
+            potatoes: nil,
+            coffee: 300,
+            ketchup: 350,
+            oliveOil: 50,
+            salt: 300,
+            pepper: 300))
+    switch watney.supplies.vitamin {
+    case .some(let count) where count > 0:
+        print("Телеметрия: Витамины в норме, осталось \(count) шт.")
+    case .some(_):
+        print("Телеметрия КРИТИЧЕСКАЯ: Коробка из-под витаминов пуста!")
+    case .none:
+        print("Телеметрия ОШИБКА: Датчик витаминов не отвечает (nil)")
+    }
+    
+    print(watney)
+    print(watney.survivalReport())
 }
-func unsafeEat() {
-    // TODO: implement on fresh mind (реализовать на свежую голову)
-}
+
+/**
+ Телеметрия: Витамины в норме, осталось 300 шт.
+ Режим Ares-3. Доступны стандартные пайки: 300. Избыток протеина 4000
+ Mark Watney wounded, antenna pierced side: Will survive 400 days: YES, supplies enoth Ketchup left: 350 pcs.
+ Program ended with exit code: 0
+ */
