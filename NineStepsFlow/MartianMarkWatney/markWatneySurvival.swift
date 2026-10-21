@@ -7,9 +7,9 @@
 
 import Foundation
 
-/// MARK: - 'Марсианин' — Выживание Марка Уотни: структурная телеметрия
-// 🎬 Сюжет: 'Ares III' эвакуирован. Марк Уотни остался один на Марсе. У него есть 300 базовых пайков. Чтобы протянуть 400 дней до прибытия 'Ares IV', он урезает дневной рацион до min. Он выращивает картошку, использует витамины и специи. Данные опциональны: сенсоры в жилом модуле могут отказывать, а запасы — исчерпываться (приводить к nil).
-// 🛠 Задача: Спроектировать надежную архитектуру модулей жизнеобеспечения на structs + enums, отработать безопасное развертывание опциональных значений всеми доступными в Swift способами. Вывести финальный отчет системы.
+// MARK: - 'The Martian' - Mark Watney's Survival: Structural Telemetry
+// 🎬 Plot: 'Ares III' has been evacuated. Mark Watney is alone on Mars. He has 300 ration packs. To survive the 400 days until 'Ares IV' arrives, he cuts his daily rations to the minimum. He grows potatoes and uses vitamins and spices. The data is optional: sensors in the Hab can fail, and supplies can be depleted (resulting in nil).
+// 🛠 Task: Design a robust life-support module architecture using structs and enums, and practice safe unwrapping of optional values using all available Swift methods. Print the final system report.
 
 /**
 1️⃣ Создать архитектуру данных:
@@ -19,25 +19,25 @@ import Foundation
    - struct LogEntry (day: Int, event: String)
    - struct WatneyStatus (diet: DailyCaloricIntake, health: HealthCondition, supplies: Resource, log: [LogEntry])
 
-2️⃣ Расширить структуру WatneyStatus через CustomStringConvertible — реализовать свойство description, использующее switch по текущему статусу здоровья (health) или режиму питания (diet) для вывода «богатых» инженерных логов ("Caloric Reserve Nominal", "Hydroponic Crop Critical").
+2️⃣ Extend the WatneyStatus structure via CustomStringConvertible — implement a description property that uses a switch on the current diet or health status to output "rich" engineering logs ("Caloric Reserve Nominal", "Hydroponic Crop Critical").
+ 
+3️⃣ Create a func survivalReport() -> String method within WatneyStatus:
+ - Calculate the caloric value of the harvest, safely unwrapping potatoes using the nil-coalescing operator (?? 0).
+ - Safely check and unwrap ketchup reserves using the if-let construct.
+ - Check for the presence of vital vitamins using the guard-let construct (if nil, return a scurvy report).
+ - Get the last event from the log using optional chaining: log.last?.event.
+ - Generate a final verdict using the ternary operator: "Will survive 400 days: YES/NO".
 
-3️⃣ Создать метод func survivalReport() -> String внутри WatneyStatus:
-   - Посчитать калорийность урожая, безопасно развернув potatoes через оператор nil-coalescing (?? 0).
-   - Безопасно проверить и развернуть запасы кетчупа через конструцию if let.
-   - Проверить наличие жизненно важных витаминов через guard let (если nil — возвращать отчет о цинге).
-   - Получить последнее событие из бортового журнала, используя optional chaining: log.last?.event.
-   - Сформировать финальный вердикт с помощью тернарного оператора: "Will survive 400 days: YES/NO".
+4️⃣ Create a simulation execution function, runMartian():
+ - Initialize a WatneyStatus instance with full (or partially nil) supplies.
+ - Use a switch statement on the optional vitamin property, handling three explicit cases: .some(count) where count > 0, .some(_) when empty, and .none (sensor error).
+ - Print a telemetry report using the previously created CustomStringConvertible.
 
-4️⃣ Создать функцию выполнения симуляции runMartian():
-   - Инициализировать экземпляр WatneyStatus с заполненными (или частично nil) припасами.
-   - Использовать switch по опциональному свойству витаминов, обрабатывая три явных кейса: .some(true), .some(false) и .none (ошибка сенсора).
-   - Распечатать отчет о телеметрии, используя созданный ранее CustomStringConvertible.
-
-5️⃣ Создать функцию явного риска func unsafeEat(status: WatneyStatus):
-   - Продемонстрировать force unwrap (восклицательный знак !), попытавшись принудительно достать значение из status.supplies.potatoes.
-   - Добавить в комментарии техническое объяснение, почему это приводит к рантайм-крашу приложения при nil и почему в промышленной разработке это категорически запрещено.
+5️⃣ Create an explicit risk function, func unsafeEat(status: WatneyStatus):
+ - Demonstrate force unwrap (exclamation point !) by attempting to forcibly retrieve a value from status.supplies.potatoes.
+ - Add a technical explanation in the comments why this leads to a runtime crash of the application when nil and why it is strictly prohibited in production.
 */
-// Связки: 1️⃣ (struct + enum + nested optionals) · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор.
+// Связки: 1️⃣ (struct + enum + nested optionals) · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор. · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор.
 
 enum HealthCondition {
     case stable, starving, injured, critical, rescued // стабильное состояние, голодающий, раненый, критическое состояние, спасенный
