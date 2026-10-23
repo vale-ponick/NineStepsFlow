@@ -37,7 +37,7 @@ import Foundation
  - Demonstrate force unwrap (exclamation point !) by attempting to forcibly retrieve a value from status.supplies.potatoes.
  - Add a technical explanation in the comments why this leads to a runtime crash of the application when nil and why it is strictly prohibited in production.
 */
-// Связки: 1️⃣ (struct + enum + nested optionals) · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор. · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор.
+// Concepts practiced: 1️⃣ (struct + enum + nested optionals) · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор. · 2️⃣ (CustomStringConvertible + switch по состояниям) · 3️⃣ (guard let, if let, ??, optional chaining) · 4️⃣ (switch паттерн-матчинг .some/.none) · 5️⃣ (force unwrap crash-test) + тернарный оператор.
 
 enum HealthCondition {
     case stable, starving, injured, critical, rescued // стабильное состояние, голодающий, раненый, критическое состояние, спасенный
