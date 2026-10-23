@@ -35,7 +35,7 @@ struct MartianResource {
         (ketchup ?? 0) > 0 && (potatoesCount ?? 0) > 0
     }
 }
-struct MartianStatus {
+struct MartianStatus: CustomStringConvertible {
     var diet: MartianDiet
     var health: MartianHealth
     var supplies: MartianResource
@@ -65,19 +65,18 @@ struct MartianStatus {
             
             if supplies.rationPacks == 0 { // 🔄 Лог ПОСЛЕ еды — показывает актуальные числа
                 log.append("🚨 Day \(day): Only potatoes — packs: 0, ate \(eaten), left: \(supplies.potatoesCount ?? 0)")
-             }
+            }
             if (supplies.potatoesCount ?? 0) < 3 {
                 log.append("⚠️ Day \(day): Potatoes low — \(supplies.potatoesCount ?? 0) left, ate \(eaten)")
             }
             if let k = supplies.ketchup, k > 0 {
                 supplies.ketchup = k - 1
             }
-            
         case .none:
-            supplies.rationPacks = 0
-              supplies.potatoesCount = nil
-              supplies.ketchup = nil 
-            log.append("📉 Day \(day): Critical — no supplies at all")
+            if supplies.potatoesCount != nil {
+                supplies.potatoesCount = nil
+                log.append("📉 Day \(day): Critical — no potatoes, ketchup \(supplies.ketchup ?? 0) left but useless")
+            }
         }
         
         // 🔄 ПРОВЕРКА ПЕРЕХОДА — в конце дня, для всех режимов
@@ -96,21 +95,45 @@ struct MartianStatus {
             log.append("🔄 Day \(day): Nothing left — switching to NONE")
         }
     }
+    var description: String {
+         "Diet: \(diet), health: \(health), 📦 packs: \(supplies.rationPacks), 🥔 potatoesCount: \(supplies.potatoesCount ?? 0), 🍅 ketchup: \(supplies.ketchup ?? 0), vitamins: \(supplies.hasVitamins ? "yes" : "no")"
+     }
 }
+
     
-    func runMartianPro() {
-        var watney = MartianStatus(
-            diet: .normal,
-            health: .stable,
-            supplies: MartianResource(rationPacks: 6, potatoesCount: 15, ketchup: 12),
-            log: []
-        )
-        for day in 1...15 {
-            watney.simulateDay(day: day)
-        }
-        print(watney)
-        for entry in watney.log { print(entry) }
+func runMartianPro() {
+    var watney = MartianStatus(
+        diet: .normal,
+        health: .stable,
+        supplies: MartianResource(rationPacks: 6, potatoesCount: 15, ketchup: 4),
+        log: []
+    )
+    print("--- START SUPPLIES ---")
+       print(watney)
+    for day in 1...12 {
+        watney.simulateDay(day: day)
+        print("Сол \(day): \(watney)")
+    }
+    
+    print("=== FINAL DESCRIPTION ===")
+       print(watney)
 }
 /**
-
+ --- START SUPPLIES ---
+ Diet: 🪐, health: ✅, 📦 packs: 6, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 1: Diet: 🪐, health: ✅, 📦 packs: 5, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 2: Diet: 🪐, health: ✅, 📦 packs: 4, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 3: Diet: 🪐, health: ✅, 📦 packs: 3, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 4: Diet: 🪐, health: ✅, 📦 packs: 2, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 5: Diet: 🪐, health: ✅, 📦 packs: 1, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 6: Diet: 🚨, health: ✅, 📦 packs: 0, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
+ Сол 7: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 12, 🍅 ketchup: 11, vitamins: yes
+ Сол 8: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 9, 🍅 ketchup: 10, vitamins: yes
+ Сол 9: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 6, 🍅 ketchup: 9, vitamins: yes
+ Сол 10: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 3, 🍅 ketchup: 8, vitamins: yes
+ Сол 11: Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 7, vitamins: no
+ Сол 12: Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 0, vitamins: no
+ === FINAL DESCRIPTION ===
+ Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 0, vitamins: no
+ Program ended with exit code: 0
  */
