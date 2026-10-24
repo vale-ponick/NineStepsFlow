@@ -119,19 +119,20 @@ func runMartianPro() {
        print(watney)
 }
 /**
+ "feat: Martian survival simulation with realistic ketchup depletion"
  --- START SUPPLIES ---
- Diet: 🪐, health: ✅, 📦 packs: 6, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 1: Diet: 🪐, health: ✅, 📦 packs: 5, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 2: Diet: 🪐, health: ✅, 📦 packs: 4, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 3: Diet: 🪐, health: ✅, 📦 packs: 3, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 4: Diet: 🪐, health: ✅, 📦 packs: 2, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 5: Diet: 🪐, health: ✅, 📦 packs: 1, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 6: Diet: 🚨, health: ✅, 📦 packs: 0, 🥔 potatoesCount: 15, 🍅 ketchup: 12, vitamins: yes
- Сол 7: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 12, 🍅 ketchup: 11, vitamins: yes
- Сол 8: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 9, 🍅 ketchup: 10, vitamins: yes
- Сол 9: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 6, 🍅 ketchup: 9, vitamins: yes
- Сол 10: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 3, 🍅 ketchup: 8, vitamins: yes
- Сол 11: Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 7, vitamins: no
+ Diet: 🪐, health: ✅, 📦 packs: 6, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 1: Diet: 🪐, health: ✅, 📦 packs: 5, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 2: Diet: 🪐, health: ✅, 📦 packs: 4, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 3: Diet: 🪐, health: ✅, 📦 packs: 3, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 4: Diet: 🪐, health: ✅, 📦 packs: 2, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 5: Diet: 🪐, health: ✅, 📦 packs: 1, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 6: Diet: 🚨, health: ✅, 📦 packs: 0, 🥔 potatoesCount: 15, 🍅 ketchup: 4, vitamins: yes
+ Сол 7: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 12, 🍅 ketchup: 3, vitamins: yes
+ Сол 8: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 9, 🍅 ketchup: 2, vitamins: yes
+ Сол 9: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 6, 🍅 ketchup: 1, vitamins: yes
+ Сол 10: Diet: 🚨, health: 🔥, 📦 packs: 0, 🥔 potatoesCount: 3, 🍅 ketchup: 0, vitamins: no
+ Сол 11: Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 0, vitamins: no
  Сол 12: Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 0, vitamins: no
  === FINAL DESCRIPTION ===
  Diet: 📉, health: 🆘, 📦 packs: 0, 🥔 potatoesCount: 0, 🍅 ketchup: 0, vitamins: no

@@ -15,4 +15,5 @@ import Foundation
 // runTeaWednesday()
 // runArtifacts()
 // runMartian()
-runMartianPro()
+// runMartianPro()
+runMartianByClasses()
