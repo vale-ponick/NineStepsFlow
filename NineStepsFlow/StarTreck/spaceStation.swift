@@ -46,6 +46,7 @@ import Foundation
 struct SpaceStation {
     static let maxEnergy: Double = 100.0 // // 1. Свойство типа (глобальная константа для всех станций)
     
+    var airSupplyPercent: Int? = 100 // Опциональный паёк с пломбой
     var meteoriteLoad: Double = 0.0 { // 2. Хранимое свойство с наблюдателем
         didSet { // Сигнализация шлюза. Как только давление упало, сирена сразу завыла.
         if meteoriteLoad > SpaceStation.maxEnergy {
@@ -64,6 +65,11 @@ struct SpaceStation {
     
     mutating func bigMeteorHit() {
         meteoriteLoad += 40.0
+    }
+    mutating func emergencyEvacuation() {
+        if isDangerZone {
+            print("🚨 ЗАПУСК СИСТЕМЫ ЭВАКУАЦИИ! МАРК, БЕГИ К MAV!")
+        }
     }
 }
 // MARK: - Проверка сценария ТЗ
@@ -86,19 +92,21 @@ func displaySpaceStation() {
     
     print("Итоговая нагрузка щита: 🛡️ \(starTreck.meteoriteLoad) ГВт")
     print("Startreck in danger zone? — 🚨 \(starTreck.isDangerZone)")
+    print("Размер станции в Стеке: \(MemoryLayout<SpaceStation>.size) байт")
 }
 /**
-  --- 🛰️ ЗАПУСК БОРТОВОГО КОМПЬЮТЕРА ---
+ --- 🛰️ ЗАПУСК БОРТОВОГО КОМПЬЮТЕРА ---
 
-  [Симуляция]: ☄️ Три мелких метеорита бьют по щиту...
-  Текущая нагрузка: 🔋 45.0 ГВт
-  Критическая зона? — 🚨 false
+ [Симуляция]: ☄️ Три мелких метеорита бьют по щиту...
+ Текущая нагрузка: 🔋 45.0 ГВт
+ Критическая зона? — 🚨 false
 
-  [Симуляция]: Внимание! ☄️ Два крупных метеорита на встречном курсе!
-  ⚠️ КРИТИЧЕСКИЙ ПЕРЕГРУЗ ЩИТА!
-  Итоговая нагрузка щита: 🛡️ 125.0 ГВт
-  Startreck in danger zone? — 🚨 true
-  Program ended with exit code: 0
+ [Симуляция]: Внимание! ☄️ Два крупных метеорита на встречном курсе!
+ ⚠️ КРИТИЧЕСКИЙ ПЕРЕГРУЗ ЩИТА!
+ Итоговая нагрузка щита: 🛡️ 125.0 ГВт
+ Startreck in danger zone? — 🚨 true
+ Размер станции в Стеке: 24 байт
+ Program ended with exit code: 0
 
   💡 ОТВЕТЫ НА ИНЖЕНЕРНЫЕ ВОПРОСЫ:
 
