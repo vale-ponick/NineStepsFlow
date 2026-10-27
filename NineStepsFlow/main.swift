@@ -21,4 +21,5 @@ import Foundation
 // print("struct: x=\(s.day1), y=\(s.day2)")
 // let c = mindyClass()
 // print("class:  x=\(c.day1), y=\(c.day2)")
-displaySpaceStation() 
+// displaySpaceStation()
+displayWaterTank() 
