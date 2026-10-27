@@ -16,22 +16,25 @@ struct WaterTank {
     
     var liters: Int
     
-    func daysLeft() -> Int {
+    var daysLeft: Int {
         liters / Self.dailyConsumption // Self — обращение к типу изнутри метода (свифтовее, чем WaterTank.dailyConsumption)
     }
     
-    func willSurvive() -> Bool {
-        daysLeft() >= Self.daysUntilAres4 // Self. — читается как «этот тип»
+    var willSurvive: Bool {
+        daysLeft >= Self.daysUntilAres4 // Self. — читается как «этот тип»
+    }
+}
+extension WaterTank: CustomStringConvertible {
+    var description: String {
+        "\(liters) l."
     }
 }
 
 func displayWaterTank() {
     let waterTankMW = WaterTank(liters: 1221)
-    let daysMW = waterTankMW.daysLeft()
-    let isSurvive = waterTankMW.willSurvive()
-    print("💧 Water: \(waterTankMW) l., Days: \(daysMW), is survive: \(isSurvive)")
+    print("💧 Water: \(waterTankMW), Days: \(waterTankMW.daysLeft), will survive: \(waterTankMW.willSurvive)")
 }
 /**
- 💧 Water: WaterTank(liters: 1221) l., Days: 407, is survive: true
+ 💧 Water: WaterTank(liters: 1221) l., Days: 407, will survive: true
  Program ended with exit code: 0
  */
