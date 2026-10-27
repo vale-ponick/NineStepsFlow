@@ -11,15 +11,17 @@ import Foundation
 // 📋 ТЗ Сюжет: у Марка есть запас воды. Он тратит 3 литра в день. Вопрос: на сколько дней хватит? И выживет ли до Ares 4 (400 дней)?
 
 struct WaterTank {
+    static let dailyConsumption = 3 // одна константа на весь тип WaterTank, не на экземпляр
+    static let daysUntilAres4 = 400
+    
     var liters: Int
     
-    func daysLeft() -> Int { // вернуть: сколько дней хватит (liters / 3)
-        liters / 3
+    func daysLeft() -> Int {
+        liters / Self.dailyConsumption // Self — обращение к типу изнутри метода (свифтовее, чем WaterTank.dailyConsumption)
     }
     
     func willSurvive() -> Bool {
-        daysLeft() >= 400
-        // вернуть: true, если дней >= 400, иначе false
+        daysLeft() >= Self.daysUntilAres4 // Self. — читается как «этот тип»
     }
 }
 
