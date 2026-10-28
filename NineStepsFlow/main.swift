@@ -25,4 +25,5 @@ import Foundation
 // displayWaterTank()
 // calcDays()
 // calcOxygenSupplies()
-calcWaterSupplies() 
+// calcWaterSupplies()
+calcDaysPerEachDiet() 
