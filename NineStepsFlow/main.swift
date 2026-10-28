@@ -22,4 +22,5 @@ import Foundation
 // let c = mindyClass()
 // print("class:  x=\(c.day1), y=\(c.day2)")
 // displaySpaceStation()
-displayWaterTank() 
+// displayWaterTank()
+calcDays()
