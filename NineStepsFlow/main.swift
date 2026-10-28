@@ -23,4 +23,5 @@ import Foundation
 // print("class:  x=\(c.day1), y=\(c.day2)")
 // displaySpaceStation()
 // displayWaterTank()
-calcDays()
+// calcDays()
+calcOxygenSupplies()
