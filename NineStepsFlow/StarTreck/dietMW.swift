@@ -34,23 +34,22 @@ struct Packs {
 }
 extension Packs: CustomStringConvertible {
     var description: String {
-        "\(daysLeft) дней в режиме \(dietMW)"
+        "🥫 \(daysLeft) days in food mode \(dietMW)"
     }
 }
 
 func calcDaysPerEachDiet() {
     let normal = Packs(dietMW: .normal)
-    print("🥫 \(normal.daysLeft) days in diet \(normal.dietMW)")
-
     let frugal = Packs(dietMW: .frugal)
-    print("🥫 \(frugal.daysLeft) days in diet \(frugal.dietMW)")
-
     let none = Packs(dietMW: .none)
-    print("\(none.daysLeft) days in diet \(none.dietMW)")
+
+    print(normal)
+    print(frugal)
+    print(none)
 }
 /**
- 🥫 300 days in diet normal
- 🥫 400 days in diet frugal
- 0 days in diet none
+ 🥫 300 days in food mode normal
+ 🥫 400 days in food mode frugal
+ 🥫 0 days in food mode none
  Program ended with exit code: 0
  */
