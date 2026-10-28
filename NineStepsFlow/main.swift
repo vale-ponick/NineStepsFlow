@@ -24,4 +24,5 @@ import Foundation
 // displaySpaceStation()
 // displayWaterTank()
 // calcDays()
-calcOxygenSupplies()
+// calcOxygenSupplies()
+calcWaterSupplies() 
