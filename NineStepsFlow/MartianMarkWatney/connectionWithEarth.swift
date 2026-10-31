@@ -48,4 +48,7 @@ func runMarkConnection() {
  ⚠️ no connection with Earth
  ⚠️ no connection with Earth
  Program ended with exit code: 0
+ 
+ 📌 Одна фраза — весь синтаксис
+ «Функция принимает Марка. Идёт по цепочке ?. три уровня. Если всё есть — возвращает строку с частотой. Если где-то nil — возвращает строку ошибки.»
  */
