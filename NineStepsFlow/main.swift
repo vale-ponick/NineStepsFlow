@@ -27,4 +27,5 @@ import Foundation
 // calcOxygenSupplies()
 // calcWaterSupplies()
 // calcDaysPerEachDiet()
-runTempInHab() 
+// runTempInHab() 
+runMarkConnection()
