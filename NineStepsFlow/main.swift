@@ -28,4 +28,5 @@ import Foundation
 // calcWaterSupplies()
 // calcDaysPerEachDiet()
 // runTempInHab() 
-runMarkConnection()
+// runMarkConnection()
+runMarkRoverProject()
