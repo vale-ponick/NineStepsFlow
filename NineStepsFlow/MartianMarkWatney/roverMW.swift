@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - 6: Mark's Rover Project
 
-/// Template defining the structure and behavior of the Mars rover.
+/// Blueprint describing the structure and behavior of the Mars rover.
 /// Placed in Stack memory as a Value Type (struct).
 struct RoverMW {
     

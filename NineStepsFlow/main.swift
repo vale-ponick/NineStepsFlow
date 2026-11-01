@@ -29,4 +29,5 @@ import Foundation
 // calcDaysPerEachDiet()
 // runTempInHab() 
 // runMarkConnection()
-runMarkRoverProject()
+// runMarkRoverProject()
+displayAres3Members() 
