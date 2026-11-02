@@ -14,11 +14,13 @@ struct CoffeeMachine {
     let name: String
     var waterTank: Int?
     static let capVolume = 50
+    static let wasteVolume = 3
+    
     
     mutating func makeCoffee() {
         if let currentWater = waterTank {
             if currentWater >= Self.capVolume {
-                waterTank = currentWater - Self.capVolume
+                waterTank = currentWater - Self.capVolume - Self.wasteVolume
                 print("\(name): ☕️ Coffee is ready")
                 print("🚰 Water left: \(waterTank ?? 0) ml.")
             } else {
@@ -42,7 +44,7 @@ func runCoffeeProject() {
 }
 /**
  Delonghi: ☕️ Coffee is ready
- 🚰 Water left: 71 ml.
+ 🚰 Water left: 68 ml.
  💧 Not enough water
  ⚠️ Sensor is broken
  Program ended with exit code: 0
