@@ -30,4 +30,5 @@ import Foundation
 // runTempInHab() 
 // runMarkConnection()
 // runMarkRoverProject()
-displayAres3Members() 
+// displayAres3Members()
+runCoffeeProject()
