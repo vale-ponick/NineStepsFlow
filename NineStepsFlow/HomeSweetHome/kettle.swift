@@ -14,7 +14,7 @@ struct Kettle {
     let name: String
     var waterMl: Int?
     
-    static let cupVolume = 150
+    static let cupVolume = 150 // Rule: константа предметной области (объём чашки, норма температуры) → static сразу.
     static let minWaterMl = 200
     static let maxWaterMl = 1000 // это реально - пригодится, если захочу задачу чуть усложнить
     

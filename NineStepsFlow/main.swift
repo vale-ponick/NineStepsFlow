@@ -33,4 +33,5 @@ import Foundation
 // displayAres3Members()
 // runCoffeeProject()
 // runFridgeStatus()
-runKettleBoil()
+//runKettleBoil()
+runLamp()
