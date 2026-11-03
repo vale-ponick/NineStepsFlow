@@ -31,4 +31,5 @@ import Foundation
 // runMarkConnection()
 // runMarkRoverProject()
 // displayAres3Members()
-runCoffeeProject()
+// runCoffeeProject()
+runFridgeStatus()
