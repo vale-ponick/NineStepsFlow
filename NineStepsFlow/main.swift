@@ -34,4 +34,5 @@ import Foundation
 // runCoffeeProject()
 // runFridgeStatus()
 //runKettleBoil()
-runLamp()
+// runLamp()
+runStartDishwasher()
