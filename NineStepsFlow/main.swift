@@ -35,4 +35,6 @@ import Foundation
 // runFridgeStatus()
 //runKettleBoil()
 // runLamp()
-runStartDishwasher()
+// runStartDishwasher()
+// runDishwasher()
+runLivingRoom()
