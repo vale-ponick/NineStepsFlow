@@ -37,4 +37,5 @@ import Foundation
 // runLamp()
 // runStartDishwasher()
 // runDishwasher()
-runLivingRoom()
+// runLivingRoom()
+checkAirSupply()
