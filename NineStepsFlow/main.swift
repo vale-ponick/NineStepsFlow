@@ -38,4 +38,5 @@ import Foundation
 // runStartDishwasher()
 // runDishwasher()
 // runLivingRoom()
-checkAirSupply()
+// checkAirSupply()
+checkAirTankCanistersSupply()
