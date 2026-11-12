@@ -64,7 +64,9 @@ func checkAirTankCanistersSupply() {
     airTankMW.disconnect(CanisterAir(id: 3, oxygen: 100))
     airTankMW.disconnect(CanisterAir(id: 1, oxygen: 250))
     airTankMW.disconnect(CanisterAir(id: 1, oxygen: 250))
-    airTankMW.disconnect(CanisterAir(id: 4, oxygen: 80)) // если была подключе
+    airTankMW.disconnect(CanisterAir(id: 4, oxygen: 80))
+    airTankMW.connect(CanisterAir(id: 6, oxygen: 20))
+    airTankMW.disconnect(CanisterAir(id: 6, oxygen: 100))// если была подключе
 }
 
 /**
