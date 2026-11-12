@@ -52,7 +52,7 @@ struct SpacesuitTank { // spacesuit tank
         }
         connectedCanisters.removeAll { $0 == canister.id }
         currentOxygen = candidate
-        print("✅ OK! 💨 Oxygen: \(currentOxygen) units")
+        print("✅ OK! 💨 Disconnected #\(canister.id). Oxygen: \(currentOxygen) units. Active: \(connectedCanisters)")
     }
 }
 
