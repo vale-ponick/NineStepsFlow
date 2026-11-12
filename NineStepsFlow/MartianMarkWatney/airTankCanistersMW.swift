@@ -64,6 +64,7 @@ func checkAirTankCanistersSupply() {
     airTankMW.disconnect(CanisterAir(id: 3, oxygen: 100))
     airTankMW.disconnect(CanisterAir(id: 1, oxygen: 250))
     airTankMW.disconnect(CanisterAir(id: 1, oxygen: 250))
+    airTankMW.disconnect(CanisterAir(id: 4, oxygen: 80)) // если была подключе
 }
 
 /**
@@ -74,6 +75,7 @@ func checkAirTankCanistersSupply() {
  ✅ OK! 💨 Oxygen: 100 units
  ❌ 🛢️ Canister 1 not connected.
  Program ended with exit code: 0
+ ❌ 🛢️ Canister 4 not connected.
  */
 /*
 одна фраза -> весь синтаксис
