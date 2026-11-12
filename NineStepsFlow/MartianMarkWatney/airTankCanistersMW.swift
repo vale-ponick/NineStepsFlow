@@ -75,47 +75,48 @@ func checkAirTankCanistersSupply() {
  ❌ 🛢️ Canister 1 not connected.
  Program ended with exit code: 0
  */
-/** TS: 📋
-3. Метод connect(_ canister: Canister)
+/*
+одна фраза -> весь синтаксис
+ connect проверяет: id уже в массиве? → отказ; иначе считает candidate = current + oxygen; candidate > max? → отказ; иначе append(id) и current = candidate. disconnect — зеркально: id есть в массиве? → нет: отказ; иначе candidate = current - oxygen; candidate < min? → отказ; иначе removeAll(id) и current = candidate.
 
-1. Проверка 1: connectedCanisters.contains(canister.id) == true?
-     → ❌ print("Stop! 🛢️ Canister \(id) already connected.")
-     → return
-2. candidate = currentOxygen + canister.oxygen
-3. Проверка 2: candidate > maxSafeOxygen?
-     → ❌ print("Stop! Valve rupture. Will be \(candidate) units.")
-     → return
-4. connectedCanisters.append(canister.id)
-5. currentOxygen = candidate
-6. ✅ print("OK! 💨 Oxygen: \(currentOxygen) units")
-Смысл проверок:
+ Это и есть весь синтаксис: проверка наличия → расчёт → проверка границ → изменение состояния.
+ 
+ [вызов]
+    │
+    ▼
+ {проверка НАЛИЧИЯ в массиве}
+    │ отказ ──────────────► return
+    │ пропуск
+    ▼
+ [расчёт candidate]
+    │
+    ▼
+ {проверка ГРАНИЦ}
+    │ отказ ──────────────► return
+    │ пропуск
+    ▼
+ [изменение состояния: массив + currentOxygen]
+    │
+    ▼
+ [✅ print]
+ 
+ [вызов connect]
+    │
+    ▼
+ {contains(id)?}  ── ДА ──► ❌ return
+    │ НЕТ
+    ▼
+ [candidate = current + oxygen]
+    │
+    ▼
+ {candidate > max?} ── ДА ──► ❌ return
+    │ НЕТ
+    ▼
+ [append(id); current = candidate]
+    │
+    ▼
+ [✅ print]
+ 
+ */
 
-Проверка 1 читает свойство connectedCanisters и сравнивает с canister.id. Если id уже есть — метод завершается до любого изменения состояния.
 
-Проверка 2 сравнивает candidate с константой maxSafeOxygen. Если превышен — метод завершается до записи.
-
-4. Метод disconnect(_ canister: Canister)
-text
-1. Проверка 1: connectedCanisters.contains(canister.id) == false?
-     → ❌ print("Stop! 🛢️ Canister \(id) not connected.")
-     → return
-2. candidate = currentOxygen - canister.oxygen
-3. Проверка 2: candidate < minSafeOxygen?
-     → ❌ print("Stop! Mark is gasping for air. Will be \(candidate) units.")
-     → return
-4. connectedCanisters.removeAll { $0 == canister.id }
-5. currentOxygen = candidate
-6. ✅ print("OK! 💨 Oxygen: \(currentOxygen) units")
-5. Правило атомарности
-При любой ошибке свойства currentOxygen и connectedCanisters не изменяются. Ошибка — это return до строк, которые пишут в свойства.
-
-6. Тест checkAirSupply()
-text
-var tank = AirTank()
-
-tank.connect(Canister(id: 1, oxygen: 250))    // шаг 1
-tank.connect(Canister(id: 2, oxygen: 400))    // шаг 2
-tank.connect(Canister(id: 1, oxygen: 250))    // шаг 3
-tank.disconnect(Canister(id: 3, oxygen: 100)) // шаг 4
-tank.disconnect(Canister(id: 1, oxygen: 250)) // шаг 5
-tank.disconnect(Canister(id: 1, oxygen: 250)) // шаг 6 */
