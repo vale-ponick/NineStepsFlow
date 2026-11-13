@@ -40,4 +40,5 @@ import Foundation
 // runLivingRoom()
 // checkAirSupply()
 // checkAirTankCanistersSupply()
-getPotatoesStore() 
+// getPotatoesStore()
+getEarthLink()
