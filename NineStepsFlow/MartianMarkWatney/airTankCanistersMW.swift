@@ -22,7 +22,7 @@ struct SpacesuitTank { // spacesuit tank
     static let minSafeOxygen = 30 // inner limit
     
     var connectedCanisters: [Int] = [] // array of ID's of connected canisters
-    /** Что означает connectedCanisters: это свойство экземпляра структуры. Оно хранится в памяти компьютера, пока живёт значение SpasesuitTank, и не сбрасывается между вызовами методов. Именно в нём записано, какие канистры сейчас подключены. */
+    /** Что означает connectedCanisters: это свойство экземпляра структуры. Оно хранится в памяти компьютера, пока живёт значение SpacesuitTank, и не сбрасывается между вызовами методов. Именно в нём записано, какие канистры сейчас подключены. */
     
     mutating func connect(_ canister: CanisterAir) {
         
@@ -65,8 +65,6 @@ func checkAirTankCanistersSupply() {
     airTankMW.disconnect(CanisterAir(id: 1, oxygen: 250))
     airTankMW.disconnect(CanisterAir(id: 1, oxygen: 250))
     airTankMW.disconnect(CanisterAir(id: 4, oxygen: 80))
-    airTankMW.connect(CanisterAir(id: 6, oxygen: 20))
-    airTankMW.disconnect(CanisterAir(id: 6, oxygen: 100))// если была подключе
 }
 
 /**

@@ -39,4 +39,5 @@ import Foundation
 // runDishwasher()
 // runLivingRoom()
 // checkAirSupply()
-checkAirTankCanistersSupply()
+// checkAirTankCanistersSupply()
+getPotatoesStore() 
