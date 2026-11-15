@@ -42,4 +42,5 @@ import Foundation
 // checkAirTankCanistersSupply()
 // getPotatoesStore()
 // getEarthLink()
-getMarsEarthLink ()
+// getMarsEarthLink ()
+getLifeSupportSystem() 
