@@ -43,4 +43,5 @@ import Foundation
 // getPotatoesStore()
 // getEarthLink()
 // getMarsEarthLink ()
-getLifeSupportSystem() 
+// getLifeSupportSystem()
+getTripToSchiaparelliCrater()
