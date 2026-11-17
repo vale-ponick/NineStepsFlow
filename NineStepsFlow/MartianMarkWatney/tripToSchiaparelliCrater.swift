@@ -106,7 +106,7 @@ struct OldRover {
             throw RoverError.batteryFull(charge: charge, maxCharge: maxCharge)
         }
         charge += amount
-        print("Ok!Батарея ровера успешно подзаряжена")
+        print("🔋 Ok!Батарея ровера успешно подзаряжена")
     }
     
     mutating func load(_ item: String) throws { // проверь груз
@@ -117,7 +117,7 @@ struct OldRover {
             throw RoverError.cargoFull(current: cargo.count, maxCargo: maxCargo)
         }
         cargo.append(item)
-        print("Груз ровера \(item) не превышает max допустимого: \(cargo.count)/\(maxCargo)")
+        print("📦 Груз ровера \(item) не превышает max допустимого: \(cargo.count)/\(maxCargo)")
     }
     
     mutating func sing(_ song: String) throws {
@@ -131,11 +131,11 @@ struct OldRover {
             throw RoverError.songsFull(current: playlist.count, maxSongs: maxSongs)
         }
         playlist.append(song)
-        print("В плейлист добавлена новая песня: \(song)")
+        print("🎵 В плейлист добавлена новая песня: \(song)")
     }
     
     func report() -> String {
-       let canReach = canReachCrater ? "yes" : "no"
+       let canReach = canReachCrater ? "🏆 МАРК ДОЕХАЛ ДО КРАТЕРА! 🚀🎵" : "no"
         return "Состояние батареи: \(charge), пройденный путь: \(odometer), в пути проведено дней: \(daysInTrip), количество груза: \(cargo.count), состояние плейлиста: \(playlist.count). Оставшаяся дистанция до кратера: \(remainingDistance), в день пройдено в среднем: \(averageDistancePerDay), сможет Марк Уотни достичь кратера Скиапарелли: \(canReach)."
     }
 }
@@ -146,6 +146,9 @@ func getTripToSchiaparelliCrater() {
     
     do { try roverMW.drive(distance: 80, discharge: 12)
     }
+    catch { print("❌ \(error.localizedDescription)") }
+    
+    do { try roverMW.drive(distance: 10, discharge: 20) }
     catch { print("❌ \(error.localizedDescription)") }
     
     do { try  roverMW.drive(distance: 0, discharge: -12)
@@ -164,6 +167,9 @@ func getTripToSchiaparelliCrater() {
     }
     catch { print("❌ \(error.localizedDescription)") }
     
+    do { try roverMW.recharge(amount: 10) }
+    catch { print("❌ \(error.localizedDescription)") }
+    
     do { try  roverMW.load("")
     }
     catch { print("❌ \(error.localizedDescription)") }
@@ -172,40 +178,114 @@ func getTripToSchiaparelliCrater() {
     }
     catch { print("❌ \(error.localizedDescription)") }
     
-    do { try  roverMW.recharge(amount: 88)
-    }
-    catch { print("❌ \(error.localizedDescription)") }
+    let songs: [String] = ["'Hot Stuff' - Donna Summer", "'I Will Survive' — Gloria Gaynor", "'Stayin' Alive' — Bee Gees", "'Starman' - David Bowie"]
     
-    do { try  roverMW.drive(distance: -2, discharge: 3)
-    }
-    catch { print("❌ \(error.localizedDescription)") }
-    
-    let items = ["RTG", "Solar panels", "Oxygenator", "Water reclaimer", "Potatoes", "Spare wheel"]
-    for item in items {
-        do { try  roverMW.load(item)
+    for song in songs {
+        do { try  roverMW.sing(song)
         }
         catch { print("❌ \(error.localizedDescription)") }
     }
+        
+        do { try  roverMW.sing("'Hot Stuff' - Donna Summer")
+    }
+        catch { print("❌ \(error.localizedDescription)") }
+        
+        do { try  roverMW.recharge(amount: 88)
+        }
+        catch { print("❌ \(error.localizedDescription)") }
+        
+        do { try  roverMW.drive(distance: -2, discharge: 3)
+        }
+        catch { print("❌ \(error.localizedDescription)") }
+        
+        let items = ["RTG", "Solar panels", "Oxygenator", "Water reclaimer", "Potatoes", "Spare wheel"]
+        for item in items {
+            do { try  roverMW.load(item)
+            }
+            catch { print("❌ \(error.localizedDescription)") }
+        }
+        
+        print(roverMW.report())
     
-    print(roverMW.report())
+    var roverMarkWatney = OldRover()
+    var attempts = 0
+    let maxAttempts = 20
+
+    while !roverMarkWatney.canReachCrater && attempts < maxAttempts {
+        attempts += 1
+        
+        do {
+            try roverMarkWatney.drive(distance: 400, discharge: 90)
+        } catch RoverError.batteryTooLow(let charge, let required) {
+            print("❌ Критический разряд: \(charge) из \(required) единиц. Миссия прервана.")
+            break // Выходим из цикла только при этой конкретной ошибке
+        } catch {
+            print("❌ Иная ошибка движения: \(error.localizedDescription)")
+            break
+        }
+        
+        do {
+            try roverMarkWatney.recharge(amount: 10)
+        } catch {
+            print("⚠️ Зарядка пропущена: \(error.localizedDescription)")
+        }
+    }
+
+    print(roverMarkWatney.report())
+    
+    var roverMulti = OldRover()
+    while !roverMulti.canReachCrater {
+        do { try roverMulti.drive(distance: 400, discharge: 10) }
+        catch { print("❌ \(error.localizedDescription)") }
+        do { try roverMulti.recharge(amount: 10) }
+        catch { print("❌ \(error.localizedDescription)") }
+    }
+    
+    print(roverMulti.report())
 }
 /**
  Состояние батареи: 100, пройденный путь: 0, в пути проведено дней: 0, количество груза: 0, состояние плейлиста: 0. Оставшаяся дистанция до кратера: 3200, в день пройдено в среднем: 0, сможет Марк Уотни достичь кратера Скиапарелли: no.
  Ок! Перегон успешен!
- ❌ Дистанция некорректна <= 0: 0
  Ок! Перегон успешен!
+ ❌ Дистанция некорректна <= 0: 0
+ ❌ Заряда батареи ровера недостаточно: 68, необходимо: 70
  ❌ Подзарядка батареи не может быть <= 0: 0
  ❌ Подзарядка батареи не может быть <= 0: -12
+ 🔋 Ok!Батарея ровера успешно подзаряжена
  ❌ Cargo item name is empty
  ❌ Song title is empty
- ❌ Текущий заряд батареи ровера: 33, max заряд: 100
+ 🎵 В плейлист добавлена новая песня: 'Hot Stuff' - Donna Summer
+ 🎵 В плейлист добавлена новая песня: 'I Will Survive' — Gloria Gaynor
+ 🎵 В плейлист добавлена новая песня: 'Stayin' Alive' — Bee Gees
+ ❌ Playlist is full: three songs. Songs in playlist: 3, max: 3
+ ❌ Can't sing the same song twice: 'Hot Stuff' - Donna Summer
+ ❌ Текущий заряд батареи ровера: 78, max заряд: 100
  ❌ Дистанция некорректна <= 0: -2
- Груз ровера RTG не превышает max допустимого: 1/5
- Груз ровера Solar panels не превышает max допустимого: 2/5
- Груз ровера Oxygenator не превышает max допустимого: 3/5
- Груз ровера Water reclaimer не превышает max допустимого: 4/5
- Груз ровера Potatoes не превышает max допустимого: 5/5
+ 📦 Груз ровера RTG не превышает max допустимого: 1/5
+ 📦 Груз ровера Solar panels не превышает max допустимого: 2/5
+ 📦 Груз ровера Oxygenator не превышает max допустимого: 3/5
+ 📦 Груз ровера Water reclaimer не превышает max допустимого: 4/5
+ 📦 Груз ровера Potatoes не превышает max допустимого: 5/5
  ❌ Cargo is full: 5/5
- Состояние батареи: 33, пройденный путь: 140, в пути проведено дней: 2, количество груза: 5, состояние плейлиста: 0. Оставшаяся дистанция до кратера: 3060, в день пройдено в среднем: 70, сможет Марк Уотни достичь кратера Скиапарелли: no.
+ Состояние батареи: 78, пройденный путь: 90, в пути проведено дней: 2, количество груза: 5, состояние плейлиста: 3. Оставшаяся дистанция до кратера: 3110, в день пройдено в среднем: 45, сможет Марк Уотни достичь кратера Скиапарелли: no.
+ ❌ Критический разряд (100% из 105%). Миссия прервана.
+ Состояние батареи: 100, пройденный путь: 0, в пути проведено дней: 0, количество груза: 0, состояние плейлиста: 0. Оставшаяся дистанция до кратера: 3200, в день пройдено в среднем: 0, сможет Марк Уотни достичь кратера Скиапарелли: no.
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Ок! Перегон успешен!
+ 🔋 Ok!Батарея ровера успешно подзаряжена
+ Состояние батареи: 100, пройденный путь: 3200, в пути проведено дней: 8, количество груза: 0, состояние плейлиста: 0. Оставшаяся дистанция до кратера: 0, в день пройдено в среднем: 400, сможет Марк Уотни достичь кратера Скиапарелли: 🏆 МАРК ДОЕХАЛ ДО КРАТЕРА! 🚀🎵.
  Program ended with exit code: 0
  */
